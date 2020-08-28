@@ -31,6 +31,10 @@ class App extends React.Component {
     this.fetchSearchTopStories(searchTerm);
   };
 
+  needsToSearchTopStories = (searchTerm) => {
+    return !this.state.results[searchTerm];
+  };
+
   fetchSearchTopStories = (searchTerm, page = 0) => {
     fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}&${PARAM_PAGE}${page}&${PARAM_HPP}${DEFAULT_HPP}`)
       .then(response => response.json())
@@ -62,18 +66,26 @@ class App extends React.Component {
   onSearchSubmit = (evt) => {
     const { searchTerm } = this.state;
     this.setState({ searchKey: searchTerm });
-    this.fetchSearchTopStories(searchTerm);
+
+    if (this.needsToSearchTopStories(searchTerm)) {
+      this.fetchSearchTopStories(searchTerm);
+    }
+
     evt.preventDefault();
   };
 
   onDismiss = (id) => {
-    const {result} = this.state;
+    const {searchKey, results} = this.state;
+    const {hits, page} = results[searchKey];
 
     const isNotId = (item) => item.objectID !== id;
-    const updatedHits = result.hits.filter(isNotId);
+    const updatedHits = hits.filter(isNotId);
 
     this.setState({
-      result: { ...result, hits: updatedHits }
+      results: {
+        ...results,
+        [searchKey]: { hits: updatedHits, page }
+      }
     });
   };
 
