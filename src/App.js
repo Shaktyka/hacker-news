@@ -22,6 +22,7 @@ class App extends React.Component {
       results: [],
       searchKey: ``,
       searchTerm: DEFAULT_QUERY,
+      error: null,
     }
   }
 
@@ -39,7 +40,7 @@ class App extends React.Component {
     fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}&${PARAM_PAGE}${page}&${PARAM_HPP}${DEFAULT_HPP}`)
       .then(response => response.json())
       .then(result => this.setSearchTopStories(result))
-      .catch(error => error);
+      .catch(error => this.setState({error}));
   };
 
   setSearchTopStories = (result) => {
@@ -96,7 +97,13 @@ class App extends React.Component {
   };
 
   render () {
-    const {searchTerm, results, searchKey} = this.state;
+    const {
+      searchTerm,
+      results,
+      searchKey,
+      error,
+    } = this.state;
+
     const page = (
       results &&
       results[searchKey] &&
@@ -121,10 +128,14 @@ class App extends React.Component {
           </Search>
         </div>
         {
-          <Table
-            list={list}
-            onDismiss={this.onDismiss}
-          />
+          error
+            ? <div className="interactions">
+                <p>Что-то пошло не так. Наш специалист уже начал разбираться.</p>
+              </div>
+            : <Table
+                list={list}
+                onDismiss={this.onDismiss}
+              />
         }
         <div className="interactions">
           <Button onClick={() => this.fetchSearchTopStories(searchKey, page + 1)}>
