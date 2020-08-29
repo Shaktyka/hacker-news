@@ -1,14 +1,59 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
+import {SORTS} from '../../constants.js';
 
 import Button from '../button/button.js';
+import Sort from '../sort/sort.js';
 
 const Table = (props) => {
-  const {list, onDismiss} = props;
+  const {
+    list,
+    onDismiss,
+    onSort,
+    sortKey,
+  } = props;
 
   return (
     <div className="table">
-      {list.map((item) => {
+      <div className="table-header">
+        <span style={{ width: '40%' }}>
+          <Sort
+            sortKey={'TITLE'}
+            onSort={onSort}
+          >
+            Заголовок
+          </Sort>
+        </span>
+        <span style={{ width: '30%' }}>
+          <Sort
+            sortKey={'AUTHOR'}
+            onSort={onSort}
+          >
+            Автор
+          </Sort>
+        </span>
+        <span style={{ width: '10%' }}>
+          <Sort
+            sortKey={'COMMENTS'}
+            onSort={onSort}
+          >
+            Комментарии
+          </Sort>
+        </span>
+        <span style={{ width: '10%' }}>
+          <Sort
+            sortKey={'POINTS'}
+            onSort={onSort}
+          >
+            Очки
+          </Sort>
+        </span>
+        <span style={{ width: '10%' }}>
+          Архив
+        </span>
+      </div>
+      {SORTS[sortKey](list).map((item) => {
         return (
           <div key={item.objectID} className="table-row">
             <span style={{ width: '40%' }}>
