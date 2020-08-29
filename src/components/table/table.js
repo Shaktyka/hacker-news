@@ -28,6 +28,7 @@ const Table = (props) => {
           <Sort
             sortKey={'TITLE'}
             onSort={onSort}
+            activeSortKey={sortKey}
           >
             Заголовок
           </Sort>
@@ -36,6 +37,7 @@ const Table = (props) => {
           <Sort
             sortKey={'AUTHOR'}
             onSort={onSort}
+            activeSortKey={sortKey}
           >
             Автор
           </Sort>
@@ -44,6 +46,7 @@ const Table = (props) => {
           <Sort
             sortKey={'COMMENTS'}
             onSort={onSort}
+            activeSortKey={sortKey}
           >
             Комментарии
           </Sort>
@@ -52,6 +55,7 @@ const Table = (props) => {
           <Sort
             sortKey={'POINTS'}
             onSort={onSort}
+            activeSortKey={sortKey}
           >
             Очки
           </Sort>
