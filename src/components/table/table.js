@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import Button from '../button/button.js';
 
 const Table = (props) => {
@@ -28,6 +30,23 @@ const Table = (props) => {
       })}
     </div>
   );
+};
+
+Table.defaultProps = {
+  list: [],
+};
+
+Table.propTypes = {
+  list: PropTypes.arrayOf(
+    PropTypes.shape({
+      objectID: PropTypes.string.isRequired,
+      author: PropTypes.string,
+      url: PropTypes.string,
+      num_comments: PropTypes.number,
+      points: PropTypes.number,
+    })
+  ).isRequired,
+  onDismiss: PropTypes.func.isRequired,
 };
 
 export default Table;

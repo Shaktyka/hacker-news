@@ -1,8 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
+import Enzyme, { shallow } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 
 import Table from './table.js';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 const props = {
   list: [
@@ -28,6 +32,17 @@ describe('Table', () => {
     );
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
+  });
+
+});
+
+describe('Table module tests', () => {
+
+  it(`Shows 2 items in list`, () => {
+  	const element = shallow(
+  	  <Table {...props} />
+  	);
+  	expect(element.find('.table-row')).toBe(2);
   });
 
 });
