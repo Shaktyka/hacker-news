@@ -6,7 +6,7 @@ import './app.css';
 import Table from '../table/table.js';
 import Button from '../button/button.js';
 import Search from '../search/search.js';
-import Loading from '../loading/loading.js';
+import withLoading from '../hocs/withLoading.js';
 
 import {
   DEFAULT_QUERY,
@@ -18,6 +18,7 @@ import {
   PARAM_HPP
 }from '../../constants.js';
 
+const ButtonWithLoading = withLoading(Button);
 
 class App extends React.Component {
   _isMounted = false;
@@ -155,13 +156,12 @@ class App extends React.Component {
               />
         }
         <div className="interactions">
-          {
-            isLoading
-              ? <Loading />
-              : <Button onClick={() => this.fetchSearchTopStories(searchKey, page + 1)}>
-                  Больше историй
-                </Button>
-          }
+          <ButtonWithLoading
+            isLoading={isLoading}
+            onClick={() => this.fetchSearchTopStories(searchKey, page + 1)}
+          >
+            Больше историй
+          </ButtonWithLoading>
         </div>
       </div>
     );
