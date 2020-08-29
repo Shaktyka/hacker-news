@@ -8,11 +8,18 @@ import Sort from '../sort/sort.js';
 
 const Table = (props) => {
   const {
+    isSortReverse,
     list,
     onDismiss,
     onSort,
     sortKey,
   } = props;
+
+  const sortedList = SORTS[sortKey](list);
+
+  const reverseSortedList = isSortReverse
+    ? sortedList.reverse()
+    : sortedList;
 
   return (
     <div className="table">
@@ -53,7 +60,7 @@ const Table = (props) => {
           Архив
         </span>
       </div>
-      {SORTS[sortKey](list).map((item) => {
+      {reverseSortedList.map((item) => {
         return (
           <div key={item.objectID} className="table-row">
             <span style={{ width: '40%' }}>

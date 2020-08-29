@@ -33,6 +33,7 @@ class App extends React.Component {
       error: null,
       isLoading: false,
       sortKey: `NONE`,
+      isSortReverse: false,
     }
   }
 
@@ -94,7 +95,8 @@ class App extends React.Component {
   };
 
   onSort = (sortKey) => {
-    this.setState({sortKey});
+    const isSortReverse = this.state.sortKey === sortKey && !this.state.isSortReverse;
+    this.setState({ sortKey, isSortReverse });
   };
 
   onDismiss = (id) => {
@@ -126,6 +128,7 @@ class App extends React.Component {
       error,
       isLoading,
       sortKey,
+      isSortReverse,
     } = this.state;
 
     const page = (
@@ -161,6 +164,7 @@ class App extends React.Component {
                 onDismiss={this.onDismiss}
                 sortKey={sortKey}
                 onSort={this.onSort}
+                isSortReverse={isSortReverse}
               />
         }
         <div className="interactions">
