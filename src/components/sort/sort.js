@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import Button from '../button/button.js';
+import Button from '../button';
 
 const Sort = (props) => {
   const { sortKey, onSort, children, activeSortKey } = props;

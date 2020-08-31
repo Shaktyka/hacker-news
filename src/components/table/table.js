@@ -1,10 +1,11 @@
 import React from 'react';
-
 import PropTypes from 'prop-types';
-import {SORTS} from '../../constants.js';
+import moment from 'moment';
 
-import Button from '../button/button.js';
-import Sort from '../sort/sort.js';
+import Button from '../button';
+import TableHeader from '../table-header';
+
+import {SORTS} from '../../constants.js';
 
 class Table extends React.Component {
   constructor(props) {
@@ -37,54 +38,20 @@ class Table extends React.Component {
 
     return (
       <div className="table">
-        <div className="table-header">
-        <span style={{ width: '40%' }}>
-          <Sort
-            sortKey={'TITLE'}
+        {
+          <TableHeader
             onSort={this.onSort}
-            activeSortKey={sortKey}
-          >
-            Заголовок
-          </Sort>
-        </span>
-        <span style={{ width: '30%' }}>
-          <Sort
-            sortKey={'AUTHOR'}
-            onSort={this.onSort}
-            activeSortKey={sortKey}
-          >
-            Автор
-          </Sort>
-        </span>
-        <span style={{ width: '10%' }}>
-          <Sort
-            sortKey={'COMMENTS'}
-            onSort={this.onSort}
-            activeSortKey={sortKey}
-          >
-            Комментарии
-          </Sort>
-        </span>
-        <span style={{ width: '10%' }}>
-          <Sort
-            sortKey={'POINTS'}
-            onSort={this.onSort}
-            activeSortKey={sortKey}
-          >
-            Очки
-          </Sort>
-        </span>
-        <span style={{ width: '10%' }}>
-          Архив
-        </span>
-        </div>
+            sortKey={sortKey}
+          />
+        }
         {reverseSortedList.map((item) => {
           return (
           <div key={item.objectID} className="table-row">
-            <span style={{ width: '40%' }}>
+            <span style={{ width: '35%' }}>
               <a href={item.url}>{item.title}</a>
             </span>
-            <span style={{ width: '30%' }}>{item.author}</span>
+            <span style={{ width: '15%' }}>{item.author}</span>
+            <span style={{ width: '20%' }}>{moment(item.created_at).format("DD-MM-YYYY")}</span>
             <span style={{ width: '10%' }}>{item.num_comments}</span>
             <span style={{ width: '10%' }}>{item.points}</span>
             <span style={{ width: '10%' }}>

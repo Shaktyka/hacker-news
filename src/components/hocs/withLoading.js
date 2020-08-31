@@ -1,5 +1,5 @@
 import React from 'react';
-import Loading from '../loading/loading.js';
+import Loading from '../loading';
 
 const withLoading = (Component) => ({ isLoading, ...rest }) => {
 

@@ -13,7 +13,6 @@ class Search extends React.Component {
 
     return (
       <form onSubmit={onSubmit}>
-        {children}
         <input
           type="search"
           onChange={onChange}

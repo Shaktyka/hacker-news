@@ -3,9 +3,9 @@ import axios from 'axios';
 
 import './app.css';
 
-import Table from '../table/table.js';
-import Button from '../button/button.js';
-import Search from '../search/search.js';
+import Table from '../table';
+import Button from '../button';
+import Search from '../search';
 import withLoading from '../hocs/withLoading.js';
 
 import {
