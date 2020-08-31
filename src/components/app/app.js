@@ -32,8 +32,6 @@ class App extends React.Component {
       searchTerm: DEFAULT_QUERY,
       error: null,
       isLoading: false,
-      sortKey: `NONE`,
-      isSortReverse: false,
     }
   }
 
@@ -94,11 +92,6 @@ class App extends React.Component {
     evt.preventDefault();
   };
 
-  onSort = (sortKey) => {
-    const isSortReverse = this.state.sortKey === sortKey && !this.state.isSortReverse;
-    this.setState({ sortKey, isSortReverse });
-  };
-
   onDismiss = (id) => {
     const {searchKey, results} = this.state;
     const {hits, page} = results[searchKey];
@@ -127,8 +120,6 @@ class App extends React.Component {
       searchKey,
       error,
       isLoading,
-      sortKey,
-      isSortReverse,
     } = this.state;
 
     const page = (
@@ -162,9 +153,6 @@ class App extends React.Component {
             : <Table
                 list={list}
                 onDismiss={this.onDismiss}
-                sortKey={sortKey}
-                onSort={this.onSort}
-                isSortReverse={isSortReverse}
               />
         }
         <div className="interactions">

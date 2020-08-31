@@ -6,28 +6,42 @@ import {SORTS} from '../../constants.js';
 import Button from '../button/button.js';
 import Sort from '../sort/sort.js';
 
-const Table = (props) => {
-  const {
-    isSortReverse,
-    list,
-    onDismiss,
-    onSort,
-    sortKey,
-  } = props;
+class Table extends React.Component {
+  constructor(props) {
+    super(props);
 
-  const sortedList = SORTS[sortKey](list);
+    this.state = {
+      sortKey: `NONE`,
+      isSortReverse: false,
+    };
+  };
 
-  const reverseSortedList = isSortReverse
-    ? sortedList.reverse()
-    : sortedList;
+  onSort = (sortKey) => {
+    const isSortReverse = this.state.sortKey === sortKey && !this.state.isSortReverse;
+    this.setState({ sortKey, isSortReverse });
+  };
 
-  return (
-    <div className="table">
-      <div className="table-header">
+  render() {
+    const { list, onDismiss } = this.props;
+
+    const {
+      sortKey,
+      isSortReverse,
+    } = this.state;
+
+    const sortedList = SORTS[sortKey](list);
+
+    const reverseSortedList = isSortReverse
+      ? sortedList.reverse()
+      : sortedList;
+
+    return (
+      <div className="table">
+        <div className="table-header">
         <span style={{ width: '40%' }}>
           <Sort
             sortKey={'TITLE'}
-            onSort={onSort}
+            onSort={this.onSort}
             activeSortKey={sortKey}
           >
             Заголовок
@@ -36,7 +50,7 @@ const Table = (props) => {
         <span style={{ width: '30%' }}>
           <Sort
             sortKey={'AUTHOR'}
-            onSort={onSort}
+            onSort={this.onSort}
             activeSortKey={sortKey}
           >
             Автор
@@ -45,7 +59,7 @@ const Table = (props) => {
         <span style={{ width: '10%' }}>
           <Sort
             sortKey={'COMMENTS'}
-            onSort={onSort}
+            onSort={this.onSort}
             activeSortKey={sortKey}
           >
             Комментарии
@@ -54,7 +68,7 @@ const Table = (props) => {
         <span style={{ width: '10%' }}>
           <Sort
             sortKey={'POINTS'}
-            onSort={onSort}
+            onSort={this.onSort}
             activeSortKey={sortKey}
           >
             Очки
@@ -63,9 +77,9 @@ const Table = (props) => {
         <span style={{ width: '10%' }}>
           Архив
         </span>
-      </div>
-      {reverseSortedList.map((item) => {
-        return (
+        </div>
+        {reverseSortedList.map((item) => {
+          return (
           <div key={item.objectID} className="table-row">
             <span style={{ width: '40%' }}>
               <a href={item.url}>{item.title}</a>
@@ -82,11 +96,12 @@ const Table = (props) => {
               </Button>
             </span>
           </div>
-        );
-      })}
-    </div>
-  );
-};
+          );
+        })}
+      </div>
+    );
+  };
+}
 
 Table.defaultProps = {
   list: [],
